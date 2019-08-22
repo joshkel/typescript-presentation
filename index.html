@@ -39,15 +39,9 @@
                 </section>
 
                 <section>
-                    <h2>
-                        What is TypeScript?
-                    </h2>
-                </section>
-
-                <section>
-                    <p>JavaScript</p>
-                    <p class="fragment">with types</p>
-                    <p class="fragment">(exactly what it says on the tin)</p>
+                    <h2 class="fragment">What TypeScript Is</h2>
+                    <h2 class="fragment">How to Use It</h2>
+                    <h2 class="fragment">Why It's Awesome</h2>
                 </section>
 
                 <section data-background-image="img/bliss-720.jpg"></section>
@@ -60,7 +54,136 @@
                     />
                 </section>
 
-                <section></section>
+                <section>
+                    <h2>What TypeScript Is</h2>
+                </section>
+
+                <section>
+                    <p>JavaScript</p>
+                    <p class="fragment">with types</p>
+                    <p class="fragment">(exactly what it says on the tin)</p>
+                </section>
+
+                <section data-transition="fade-out">
+                    <pre><code data-trim>
+function greeter(person) {
+    return "Hello, " + person;
+}
+
+let user = "Jane User";
+
+document.body.textContent = greeter(user);
+                    </code></pre>
+                    <a
+                        href="http://www.typescriptlang.org/docs/handbook/typescript-in-5-minutes.html"
+                    >
+                        TypeScript in 5 Minutes
+                    </a>
+                </section>
+
+                <section data-transition="fade-in fade-out">
+                    <pre><code data-trim>
+function greeter(person: string) {
+    return "Hello, " + person;
+}
+
+let user = "Jane User";
+
+document.body.textContent = greeter(user);
+                    </code></pre>
+                    <a
+                        href="http://www.typescriptlang.org/docs/handbook/typescript-in-5-minutes.html"
+                    >
+                        TypeScript in 5 Minutes
+                    </a>
+                </section>
+
+                <section data-transition="fade-in fade-out">
+                    <pre><code data-trim>
+interface Person {
+    firstName: string;
+    lastName: string;
+}
+
+function greeter(person: Person) {
+    return "Hello, " + person.firstName + " " + person.lastName;
+}
+
+let user = { firstName: "Jane", lastName: "User" };
+
+document.body.textContent = greeter(user);
+                    </code></pre>
+                    <a
+                        href="http://www.typescriptlang.org/docs/handbook/typescript-in-5-minutes.html"
+                    >
+                        TypeScript in 5 Minutes
+                    </a>
+                </section>
+
+                <section data-transition="fade-in fade-out">
+                    <pre><code data-trim>
+class Student {
+    fullName: string;
+    constructor(
+        public firstName: string,
+        public middleInitial: string,
+        public lastName: string
+    ) {
+        this.fullName = firstName + " "
+            + middleInitial + " "
+            + lastName;
+    }
+}
+
+interface Person {
+    firstName: string;
+    lastName: string;
+}
+
+function greeter(person: Person) {
+    return "Hello, " + person.firstName + " " + person.lastName;
+}
+
+let user = new Student("Jane", "M.", "User");
+
+document.body.textContent = greeter(user);
+                    </code></pre>
+                    <a
+                        href="http://www.typescriptlang.org/docs/handbook/typescript-in-5-minutes.html"
+                    >
+                        TypeScript in 5 Minutes
+                    </a>
+                </section>
+
+                <section data-transition="fade-in fade-out">
+                    <pre><code data-trim>
+"use strict";
+class Student {
+    constructor(firstName, middleInitial, lastName) {
+        this.firstName = firstName;
+        this.middleInitial = middleInitial;
+        this.lastName = lastName;
+        this.fullName = firstName + " "
+            + middleInitial + " "
+            + lastName;
+    }
+}
+function greeter(person) {
+    return "Hello, " + person.firstName + " " + person.lastName;
+}
+let user = new Student("Jane", "M.", "User");
+document.body.textContent = greeter(user);
+                    </code></pre>
+                    <a
+                        href="http://www.typescriptlang.org/docs/handbook/typescript-in-5-minutes.html"
+                    >
+                        TypeScript in 5 Minutes
+                    </a>
+                </section>
+
+                <section>
+                    <h2>How to Use It</h2>
+                </section>
 
                 <section>
                     <h3>Trying It Out</h3>
@@ -121,7 +244,66 @@
                 </section>
 
                 <section>
-                    <h2>Demo: Adding Async</h2>
+                    <h3>tsconfig.json</h3>
+                    <pre><code class="json" data-trim>
+{
+  "compilerOptions": {
+    "target": "es5",
+
+    "alwaysStrict": true,
+    "strictNullChecks": true,
+    "noImplicitAny": true,
+    "noImplicitReturns": true,
+    "noImplicitThis": true,
+    "noUnusedLocals": true
+  }
+}
+                    </code></pre>
+                </section>
+
+                <section>
+                    <h2>Why It's Awesome</h2>
+                </section>
+
+                <section>
+                    <h3>strictNullChecks</h3>
+                    <pre><code data-trim>
+// tsconfig.json
+"strictNullChecks": true,
+                    </code></pre>
+                    <pre><code data-trim>
+function showBanner(user: User | null) {
+    // Error! User might undefined.
+    alert('Hello, ' + user.name);
+
+    if (user) {
+        // Okay - within this block, user cannot be null.
+        alert('Hello, ' + user.name);
+    }
+}
+                    </code></pre>
+                </section>
+
+                <section>
+                    <p style="font-size: smaller; text-align: left">
+                        I call it my billion-dollar mistake. It was the
+                        invention of the null reference in 1965&hellip; My goal
+                        was to ensure that all use of references should be
+                        absolutely safe, with checking performed automatically
+                        by the compiler. But I couldn't resist the temptation to
+                        put in a null reference, simply because it was so easy
+                        to implement. This has led to innumerable errors,
+                        vulnerabilities, and system crashes, which have probably
+                        caused a billion dollars of pain and damage in the last
+                        forty years.
+                    </p>
+                    <p>&mdash; <a href="https://en.wikipedia.org/wiki/Tony_Hoare#Apologies_and_retractions">
+                        Tony Hoare
+                    </a></a></p>
+                </section>
+
+                <section>
+                    <h3>Demo: Adding Async</h3>
                 </section>
 
                 <section data-transition="fade-out">
@@ -163,8 +345,7 @@ function configureProxy(
                 <section>
                     <pre><code class="javascript" data-trim>
 Promise.resolve(valueOrPromiseItDoesntMatter)
-    .then(function(value) {
-    })
+    .then(function(value) {})
                     </code></pre>
                     <a href="https://stackoverflow.com/a/27760489/25507">
                         https://stackoverflow.com/a/27760489/25507
