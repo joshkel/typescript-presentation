@@ -11,10 +11,12 @@
 
         <link rel="stylesheet" href="css/reset.css" />
         <link rel="stylesheet" href="css/reveal.css" />
-        <link rel="stylesheet" href="css/theme/black.css" />
+        <link rel="stylesheet" href="css/theme/night.css" />
 
         <!-- Theme used for syntax highlighting of code -->
         <link rel="stylesheet" href="lib/css/monokai.css" />
+
+        <link rel="stylesheet" href="css/site.css" />
 
         <!-- Printing and PDF exports -->
         <script>
@@ -30,8 +32,125 @@
     <body>
         <div class="reveal">
             <div class="slides">
-                <section>Slide 1</section>
-                <section>Slide 2</section>
+                <section>
+                    <h1>
+                        Fun with TypeScript
+                    </h1>
+                </section>
+
+                <section>
+                    <h2>
+                        What is TypeScript?
+                    </h2>
+                </section>
+
+                <section>
+                    <p>JavaScript</p>
+                    <p class="fragment">with types</p>
+                    <p class="fragment">(exactly what it says on the tin)</p>
+                </section>
+
+                <section data-background-image="img/bliss-720.jpg"></section>
+                <section data-background-image="img/bliss-720-brown.jpg">
+                    <img
+                        class="fragment plain"
+                        src="img/corgibytes-logo.png"
+                        width="98"
+                        height="158"
+                    />
+                </section>
+
+                <section></section>
+
+                <section>
+                    <h3>Trying It Out</h3>
+
+                    <p class="fragment">
+                        <a href="http://www.typescriptlang.org/play/">
+                            The TypeScript Playground
+                        </a>
+                    </p>
+
+                    <p class="fragment"><code>ts-node</code></p>
+                </section>
+
+                <section>
+                    <h3>Compiling TypeScript</h3>
+
+                    <ol>
+                        <li class="fragment">
+                            tsc, the TypeScript compiler
+                            <ul class="fragment">
+                                <li>ts-loader (what I use)</li>
+                                <li>awesome-typescript-loader</li>
+                            </ul>
+                        </li>
+                        <li class="fragment">
+                            Babel 7
+                            <ul class="fragment">
+                                <li>tsc --noEmit</li>
+                            </ul>
+                        </li>
+                    </ol>
+                </section>
+
+                <section>
+                    <h3>Compiling TypeScript</h3>
+
+                    <ol>
+                        <li class="fragment">
+                            Start with a generator (
+                            <code>create-react-app</code>
+                            ), boilerplate, etc.
+                        </li>
+                        <li class="fragment">
+                            Modify it as needed for your project
+                        </li>
+                        <li class="fragment">
+                            Grumble and complain when things don't work
+                        </li>
+                        <li class="fragment">
+                            Copy and paste new configurations from Stack
+                            Overflow or other projects
+                        </li>
+                        <li class="fragment">
+                            Check it in and hope you never have to touch it
+                            again
+                        </li>
+                    </ol>
+                </section>
+
+                <section>
+                    <h3>References</h3>
+
+                    <ul>
+                        <li>
+                            <a href="https://iamturns.com/typescript-babel/">
+                                TypeScript With Babel: A Beautiful Marriage
+                            </a>
+                        </li>
+                        <li>
+                            <a
+                                href="https://blog.logrocket.com/choosing-between-babel-and-typescript-4ed1ad563e41/"
+                            >
+                                Choosing between Babel and TypeScript
+                            </a>
+                        </li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h3>Credits</h3>
+                    <ul>
+                        <li>
+                            <a
+                                href="https://www.gizmodo.com.au/2014/03/an-hour-with-the-photographer-behind-windows-xps-iconic-bliss-background/"
+                            >
+                                Windows XP "Bliss"
+                            </a>
+                        </li>
+                    </ul>
+                </section>
             </div>
         </div>
 
@@ -42,6 +161,7 @@
             // - https://github.com/hakimel/reveal.js#configuration
             // - https://github.com/hakimel/reveal.js#dependencies
             Reveal.initialize({
+                history: true,
                 dependencies: [
                     { src: "plugin/markdown/marked.js" },
                     { src: "plugin/markdown/markdown.js" },
