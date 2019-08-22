@@ -121,6 +121,105 @@
                 </section>
 
                 <section>
+                    <h2>Demo: Adding Async</h2>
+                </section>
+
+                <section data-transition="fade-out">
+                    <pre><code class="typescript" data-trim>
+import { IncomingMessage, ServerResponse } from 'http';
+
+function configureProxy(
+    app: connect.Server,
+    proxy: httpProxy,
+    getTarget: (req: IncomingMessage) => string,
+) {
+    app.use((req: IncomingMessage, res: ServerResponse) => {
+        handleRequestInternally(req);
+        const target = getTarget(req);
+        proxy.web(req, res, { target });
+    });
+}
+                    </code></pre>
+                </section>
+
+                <section data-transition="fade-in">
+                    <pre><code class="typescript" data-trim>
+import { IncomingMessage, ServerResponse } from 'http';
+
+function configureProxy(
+    app: connect.Server,
+    proxy: httpProxy,
+    getTarget: (req: IncomingMessage) => string | Promise&lt;string>,
+) {
+    app.use((req: IncomingMessage, res: ServerResponse) => {
+        handleRequestInternally(req);
+        const target = getTarget(req);
+        proxy.web(req, res, { target });
+    });
+}
+                    </code></pre>
+                </section>
+
+                <section>
+                    <pre><code class="javascript" data-trim>
+Promise.resolve(valueOrPromiseItDoesntMatter)
+    .then(function(value) {
+    })
+                    </code></pre>
+                    <a href="https://stackoverflow.com/a/27760489/25507">
+                        https://stackoverflow.com/a/27760489/25507
+                    </a>
+                </section>
+
+                <section>
+                    <pre><code class="javascript" data-trim>
+/**
+ * Creates a new resolved promise for the provided value.
+ * @param value A promise.
+ * @returns A promise whose internal state matches the provided promise.
+ */
+resolve&lt;T>(value: T | PromiseLike&lt;T>): Promise&lt;T>;
+                    </code></pre>
+                    <p><code>lib.es2015.promise.d.ts</code></p>
+                </section>
+
+                <section data-transition="fade-out">
+                    <pre><code class="typescript" data-trim>
+import { IncomingMessage, ServerResponse } from 'http';
+
+function configureProxy(
+    app: connect.Server,
+    proxy: httpProxy,
+    getTarget: (req: IncomingMessage) => string | Promise&lt;string>,
+) {
+    app.use((req: IncomingMessage, res: ServerResponse) => {
+        handleRequestInternally(req);
+        const target = getTarget(req);
+        proxy.web(req, res, { target });
+    });
+}
+                    </code></pre>
+                </section>
+
+                <section data-transition="fade-in">
+                    <pre><code class="typescript" data-trim>
+import { IncomingMessage, ServerResponse } from 'http';
+
+function configureProxy(
+    app: connect.Server,
+    proxy: httpProxy,
+    getTarget: (req: IncomingMessage) => string | Promise&lt;string>,
+) {
+    app.use((req: IncomingMessage, res: ServerResponse) => {
+        handleRequestInternally(req);
+        Promise.resolve(getTarget(req))
+            .then(target => proxy.web(req, res, { target }));
+    });
+}
+                    </code></pre>
+                </section>
+
+                <section>
                     <h3>References</h3>
 
                     <ul>
