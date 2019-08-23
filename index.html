@@ -182,6 +182,30 @@ document.body.textContent = greeter(user);
                 </section>
 
                 <section>
+                    <h3>Important Concepts</h3>
+                    <ul>
+                        <li class="fragment">It goes away at runtime.</li>
+                        <li class="fragment">
+                            <a
+                                href="https://www.typescriptlang.org/docs/handbook/type-compatibility.html#a-note-on-soundness"
+                            >
+                                It is not sound.
+                            </a>
+                        </li>
+                        <li class="fragment">It's 90% modern JavaScript.</li>
+                        <li class="fragment">
+                            The other 10% is just types.
+                            <p class="muted">
+                                (I'm making up those percentages.)
+                            </p>
+                        </li>
+                    </ul>
+                    <aside class="notes">
+                        "Chances are that if it type-checks, it's correct."
+                    </aside>
+                </section>
+
+                <section>
                     <h2>How to Use It</h2>
                 </section>
 
@@ -262,6 +286,107 @@ document.body.textContent = greeter(user);
                 </section>
 
                 <section>
+                    <h3>Getting Type Definitions</h3>
+                    <a
+                        href="https://github.com/DefinitelyTyped/DefinitelyTyped"
+                    >
+                        https://github.com/DefinitelyTyped/DefinitelyTyped
+                    </a>
+
+                    <pre><code class="sh" data-trim>
+# Install Node package for processing command-line arguments
+yarn add yargs
+# Install the types for it
+yarn add --dev @types/yargs
+                    </code></pre>
+                </section>
+
+                <section>
+                    <h3>Getting Type Definitions</h3>
+                    <pre><code class="json" data-trim>
+{
+    "devDependencies": {
+        "@types/yargs": "^13.0"
+    },
+    "dependencies": {
+        "yargs": "^13.2.2"
+    }
+}
+                    </code></pre>
+                </section>
+
+                <section>
+                    <h3>Getting Type Definitions</h3>
+                    <pre><code class="sh" data-trim>
+# Install Node package for HTTP client
+yarn add axios
+# Install the types for it
+yarn add --dev @types/axios
+                    </code></pre>
+                    <pre class="fragment"><code class="no-highlight" data-trim>
+warning @types/axios@0.14.0: This is a stub types definition for
+axios (https://github.com/mzabriskie/axios). axios provides its
+own type definitions, so you don't need @types/axios installed!
+                    </code></pre>
+                    <pre class="fragment"><code class="sh" data-trim>
+# Groovy. Never mind, then.
+yarn remove @types/axios
+                    </code></pre>
+                </section>
+
+                <section>
+                    <h3>Getting Type Definitions</h3>
+                    <p>A snippet of axios's package.json</p>
+                    <pre><code data-trim>
+{
+    "typings": "./index.d.ts"
+}
+                    </code></pre>
+                </section>
+
+                <section>
+                    <h3>If You Don't Have Types</h3>
+                    <p>The simple approach: untyped <code>require</code></p>
+                    <pre><code class="typescript" data-trim>
+// This is now of type `any`
+const untypedModule = require('untyped-module');
+                    </code></pre>
+                </section>
+
+                <section>
+                    <h3>If You Don't Have Types</h3>
+                    <p>
+                        The proper approach: Write your own
+                        <code>.d.ts</code> file
+                    </p>
+                    <pre><code class="typescript" data-trim>
+declare module 'trie-search' {
+    // Add your interfaces, types, etc. here
+    namespace TrieSearch {
+        // And more types
+    }
+
+    export = TrieSearch;
+}
+                    </code></pre>
+                </section>
+
+                <section>
+                    <h3>If You Don't Have Types</h3>
+                    <p>The proper approach: Write your own</p>
+                    <pre><code class="json" data-trim>
+{
+  "include": [
+    "app/**/*.ts",
+    "node_modules/@types/**/*.d.ts",
+    // Reference it within tsconfig.json
+    "types/**/*.d.ts"
+  ],
+}
+                    </code></pre>
+                </section>
+
+                <section>
                     <h2>Why It's Awesome</h2>
                 </section>
 
@@ -297,16 +422,21 @@ function showBanner(user: User | null) {
                         caused a billion dollars of pain and damage in the last
                         forty years.
                     </p>
-                    <p>&mdash; <a href="https://en.wikipedia.org/wiki/Tony_Hoare#Apologies_and_retractions">
-                        Tony Hoare
-                    </a></a></p>
+                    <p>
+                        &mdash;
+                        <a
+                            href="https://en.wikipedia.org/wiki/Tony_Hoare#Apologies_and_retractions"
+                        >
+                            Tony Hoare
+                        </a>
+                    </p>
                 </section>
 
                 <section>
                     <h3>Demo: Adding Async</h3>
                 </section>
 
-                <section data-transition="fade-out">
+                <section data-transition="slide-in fade-out">
                     <pre><code class="typescript" data-trim>
 import { IncomingMessage, ServerResponse } from 'http';
 
@@ -324,7 +454,7 @@ function configureProxy(
                     </code></pre>
                 </section>
 
-                <section data-transition="fade-in">
+                <section data-transition="fade-in slide-out">
                     <pre><code class="typescript" data-trim>
 import { IncomingMessage, ServerResponse } from 'http';
 
@@ -364,7 +494,7 @@ resolve&lt;T>(value: T | PromiseLike&lt;T>): Promise&lt;T>;
                     <p><code>lib.es2015.promise.d.ts</code></p>
                 </section>
 
-                <section data-transition="fade-out">
+                <section data-transition="slide-in fade-out">
                     <pre><code class="typescript" data-trim>
 import { IncomingMessage, ServerResponse } from 'http';
 

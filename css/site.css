@@ -3,3 +3,7 @@ img.plain {
     box-shadow: none !important;
     background: none !important;
 }
+
+.muted {
+    opacity: 0.5;
+}
