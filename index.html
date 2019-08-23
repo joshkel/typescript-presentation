@@ -181,6 +181,31 @@ document.body.textContent = greeter(user);
                     </a>
                 </section>
 
+                <section data-transition="fade-in fade-out">
+                    <pre><code data-trim>
+"use strict";
+var Student = /** @class */ (function () {
+    function Student(firstName, middleInitial, lastName) {
+        this.firstName = firstName;
+        this.middleInitial = middleInitial;
+        this.lastName = lastName;
+        this.fullName = firstName + " " + middleInitial + " " + lastName;
+    }
+    return Student;
+}());
+function greeter(person) {
+    return "Hello, " + person.firstName + " " + person.lastName;
+}
+var user = new Student("Jane", "M.", "User");
+document.body.textContent = greeter(user);
+                    </code></pre>
+                    <a
+                        href="http://www.typescriptlang.org/docs/handbook/typescript-in-5-minutes.html"
+                    >
+                        TypeScript in 5 Minutes
+                    </a>
+                </section>
+
                 <section>
                     <h3>Important Concepts</h3>
                     <ul>
@@ -201,12 +226,190 @@ document.body.textContent = greeter(user);
                         </li>
                     </ul>
                     <aside class="notes">
+                        "Sound" means that it rejects incorrect programs.
                         "Chances are that if it type-checks, it's correct."
                     </aside>
                 </section>
 
                 <section>
                     <h2>How to Use It</h2>
+                </section>
+
+                <section>
+                    <h3>Types</h3>
+                    <p>These are types:</p>
+                    <ul>
+                        <li class="fragment"><code>number</code></li>
+                        <li class="fragment"><code>string</code></li>
+                        <li class="fragment">
+                            <code>Array&lt;string></code> or
+                            <code>string[]</code>
+                        </li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h3>Types</h3>
+                    <p>These are also types:</p>
+                    <ul>
+                        <li class="fragment">
+                            <code>number?</code> ("optional - may be undefined"
+                            - in objects / interfaces and function parameter
+                            lists)
+                        </li>
+                        <li class="fragment">
+                            <code>string | null</code> (union types)
+                        </li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h3>Types</h3>
+                    <p>
+                        This is also a type (from Node's
+                        <code>http</code> module):
+                    </p>
+                    <pre><code class="javascript" data-trim>
+export class Server extends net.Server {
+    constructor(requestListener?:
+        (req: IncomingMessage, res: ServerResponse) => void);
+
+    setTimeout(msecs?: number, callback?: () => void): this;
+    setTimeout(callback: () => void): this;
+    maxHeadersCount: number;
+    timeout: number;
+    keepAliveTimeout: number;
+}
+                    </code></pre>
+                </section>
+
+                <section>
+                    <h3>Enum Types</h3>
+                    <pre><code class="typescript" data-trim>
+enum Direction {
+    Up = 1,
+    Down,
+    Left,
+    Right,
+}
+console.log(Direction.Up);
+                    </code></pre>
+                    <a
+                        href="https://www.typescriptlang.org/docs/handbook/enums.html"
+                    >
+                        TypeScript Handbook
+                    </a>
+                </section>
+
+                <section>
+                    <h3>Enum Types</h3>
+                    <p>That gets turned in to something like this:</p>
+                    <pre><code class="javascript" data-trim>
+const Direction = {
+  '1': 'Up',
+  '2': 'Down',
+  '3': 'Left',
+  '4': 'Right',
+  Up: 1,
+  Down: 2,
+  Left: 3,
+  Right: 4
+};
+                    </code></pre>
+                </section>
+
+                <section>
+                    <h3>Types</h3>
+                    <p>This is also a type:</p>
+                    <pre><code type="typescript" data-trim>
+type NetServerEvent = 'close'
+    | 'connection'
+    | 'error'
+    | 'listening';
+                    </code></pre>
+                </section>
+
+                <section class="full-size">
+                    <iframe
+                        class="full-size"
+                        data-src="https://nodejs.org/api/events.html#events_emitter_on_eventname_listener"
+                    ></iframe>
+                </section>
+
+                <section class="full-size">
+                    <iframe
+                        class="full-size"
+                        data-src="https://nodejs.org/api/net.html#net_event_close"
+                    >
+                    </iframe>
+                </section>
+
+                <section>
+                    <h3>Types</h3>
+                    <p>You can overload based on types:</p>
+                    <pre><code type="typescript" data-trim>
+export class Server extends EventEmitter {
+    on(event: string, listener: (...args: any[]) => void): this;
+    on(event: "close", listener: () => void): this;
+    on(event: "connection", listener: (socket: Socket) => void): this;
+    on(event: "error", listener: (err: Error) => void): this;
+    on(event: "listening", listener: () => void): this;
+}
+                    </code></pre>
+                </section>
+
+                <section>
+                    <h3>Intersection Types</h3>
+                    <pre><code class="typescript" data-trim>
+import { RouteComponentProps } from 'react-router';
+interface Props {
+    pageTitle: string;
+    currentUser?: User;
+}
+export class MyPage
+    extends React.PureComponent&lt;Props & RouteComponentProps> {
+}
+                    </code></pre>
+                </section>
+
+                <section>
+                    <h3>Tuples</h3>
+                    <pre><code class="typescript" data-trim>
+// Declare a tuple type
+let x: [string, number];
+// Initialize it
+x = ["hello", 10]; // OK
+// Initialize it incorrectly
+x = [10, "hello"]; // Error
+                    </code></pre>
+                    <a
+                        href="https://www.typescriptlang.org/docs/handbook/basic-types.html#tuple"
+                    >
+                        TypeScript Handbook
+                    </a>
+                </section>
+
+                <section>
+                    <h3>Special Types</h3>
+                    <ul>
+                        <li class="fragment">
+                            <code>any</code> - &ldquo;I'll let you do anything
+                            you want with this.&rdquo;
+                        </li>
+                        <li class="fragment">
+                            <code>unknown</code> - &ldquo;You'll have to check
+                            and cast before you do anything.&rdquo;
+                        </li>
+                        <li class="fragment">
+                            <code>never</code> - &ldquo;This can never
+                            happen.&rdquo;
+                            <pre><code class="typescript" data-trim>
+function error(message: string): never {
+    throw new Error(message);
+}
+                            </code></pre>
+                        </li>
+                    </ul>
                 </section>
 
                 <section>
@@ -405,6 +608,9 @@ function showBanner(user: User | null) {
         // Okay - within this block, user cannot be null.
         alert('Hello, ' + user.name);
     }
+
+    // Trust me! I know what I'm doing.
+    alert('Hello, ' + user!.name);
 }
                     </code></pre>
                 </section>
@@ -430,6 +636,55 @@ function showBanner(user: User | null) {
                             Tony Hoare
                         </a>
                     </p>
+                </section>
+
+                <section>
+                    <h3>Demo: Processing Command-Line Arguments</h3>
+                </section>
+
+                <section>
+                    <pre><code class="typescript" data-trim>
+const argv = yargs
+  .strict()
+  .option('fromDate', {
+    alias: 'f',
+    coerce: asIsoDate,
+    description: `Starting date (${ISO_DATE_FORMAT})`,
+  })
+  .option('toDate', {
+    alias: 't',
+    coerce: asIsoDate,
+    description: `Ending date (${ISO_DATE_FORMAT})`,
+  })
+  .option('client', {
+    alias: 'c',
+    required: true,
+    description: 'Client name',
+    type: 'string',
+  })
+  .option('wikiPath', {
+    alias: 'w',
+    description: 'Path to journal wiki',
+    default: path.normalize(path.join(
+        __dirname, '..', '..', 'the-oracle.wiki')),
+  }).argv;
+                    </code></pre>
+                </section>
+
+                <section>
+                    <pre><code class="typescript" data-trim>
+// Hack: As of May 2019, @types/yargs doesn't understand a
+// default function, so we reassign arguments to keep it happy.
+const options = {
+  ...argv,
+  fromDate: (argv.fromDate as unknown) as moment.Moment,
+  toDate: (argv.toDate as unknown) as moment.Moment,
+};
+                    </code></pre>
+                </section>
+
+                <section>
+                    <img src="img/yargs.png" />
                 </section>
 
                 <section>
@@ -527,6 +782,127 @@ function configureProxy(
             .then(target => proxy.web(req, res, { target }));
     });
 }
+                    </code></pre>
+                </section>
+
+                <section>
+                    <h3>Demo: A React Options Form</h3>
+                </section>
+
+                <section>
+                    <pre><code class="typescript" data-trim>
+interface Options {
+    hideStatus: boolean;
+    emailOnNewReplies: boolean;
+}
+                    </code></pre>
+                </section>
+
+                <section>
+                    <pre><code class="typescript" data-trim>
+export const setOption = createAction('SET_OPTION',
+  (newOptions: Partial&lt;Options>) => ({
+    type: 'SET_OPTION',
+    payload: newOptions,
+  })
+);
+                    </code></pre>
+                </section>
+
+                <section data-transition="slide-in fade-out">
+                    <pre><code class="tsx" data-trim>
+const Checkbox = ({ id, children, options, setOption, }: {
+  id: string;
+  children: any;
+  options: Options;
+  setOption: (o: Partial&lt;Options>) => void;
+}) => (
+  &lt;div>
+    &lt;input
+      id={id} name={id} type="checkbox"
+      checked={(options as any)[id]}
+      onChange={() => setOption({ [id]: !(options as any)[id] })}
+    />
+    &lt;label htmlFor={id}>{children}&lt;/label>
+  &lt;/div>
+);
+                    </code></pre>
+                </section>
+
+                <section data-transition="fade-in slide-out">
+                    <pre><code class="tsx" data-trim>
+const Checkbox = ({ id, children, options, setOption, }: {
+  id: keyof Options;
+  children: any;
+  options: Options;
+  setOption: (o: Partial&lt;Options>) => void;
+}) => (
+  &lt;div>
+    &lt;input
+      id={id} name={id} type="checkbox"
+      checked={options[id]}
+      onChange={() => setOption({ [id]: !options[id] })}
+    />
+    &lt;label htmlFor={id}>{children}&lt;/label>
+  &lt;/div>
+);
+                    </code></pre>
+                </section>
+
+                <section>
+                    <p>It's as if we had this:</p>
+                    <pre><code class="typescript" data-trim>
+interface Options {
+    hideStatus: boolean;
+    emailOnNewReplies: boolean;
+}
+type OptionsKey = 'hideStatus' | 'emailOnNewReplies';
+                    </code></pre>
+                </section>
+
+                <section>
+                    <p>Now let's add a new option:</p>
+                    <pre><code class="typescript" data-trim>
+interface Options {
+    hideStatus: boolean;
+    emailOnNewReplies: boolean;
+    timeZone: number;
+}
+                    </code></pre>
+                </section>
+
+                <section>
+                    <pre><code class="typescript" data-trim>
+&lt;input
+    id={id} name={id} type="checkbox"
+    checked={options[id]}
+    onChange={() => setOption({ [id]: !options[id] })}
+/>
+                    </code></pre>
+                    <img src="img/options-checkbox.png" />
+                </section>
+
+                <section>
+                    <pre><code class="typescript" data-trim>
+// https://stackoverflow.com/q/49752151/25507
+export type KeysOfType&lt;T, TProp> =
+  { [P in keyof T]: T[P] extends TProp ? P : never }[keyof T];
+
+const Checkbox = ({ id, children, options, setOption, }: {
+  id: KeyOfType&lt;Options, bool>;
+  children: any;
+  options: Options;
+  setOption: (o: Partial&lt;Options>) => void;
+}) => (
+  &lt;div>
+    &lt;input
+      id={id} name={id} type="checkbox"
+      checked={options[id]}
+      onChange={() => setOption({ [id]: !options[id] })}
+    />
+    &lt;label htmlFor={id}>{children}&lt;/label>
+  &lt;/div>
+);
                     </code></pre>
                 </section>
 

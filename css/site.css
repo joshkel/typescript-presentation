@@ -7,3 +7,8 @@ img.plain {
 .muted {
     opacity: 0.5;
 }
+
+.full-size {
+    width: 100%;
+    height: 100%;
+}
