@@ -642,6 +642,24 @@ function showBanner(user: User | null) {
                 </section>
 
                 <section>
+                    <h3>One Gotcha</h3>
+                    <pre><code class="typescript" data-trim>
+interface Dictionary&lt;T&gt; {
+    [index: string]: T;
+}
+                    </code></pre>
+                    <pre class="fragment"><code class="typescript" data-trim>
+const lookup: Dictionary&lt;number&gt; = {
+    alpha: 1,
+    beta: 2,
+};
+
+// This evaluates to `undefined` at runtime.
+console.log(lookup['gamma']);
+                    </code></pre>
+                </section>
+
+                <section>
                     <h3>Demo: Processing Command-Line Arguments</h3>
                 </section>
 
@@ -675,6 +693,10 @@ const argv = yargs
                 </section>
 
                 <section>
+                    <img src="img/yargs.png" />
+                </section>
+
+                <section>
                     <pre><code class="typescript" data-trim>
 // Hack: As of May 2019, @types/yargs doesn't understand a
 // default function, so we reassign arguments to keep it happy.
@@ -684,10 +706,6 @@ const options = {
   toDate: (argv.toDate as unknown) as moment.Moment,
 };
                     </code></pre>
-                </section>
-
-                <section>
-                    <img src="img/yargs.png" />
                 </section>
 
                 <section>
